@@ -17,7 +17,7 @@ class ML:
         self.y_test = y_test
 
 
-    def SVM(self,kernel = 'rbf',C = 10,gamma='auto'):
+    def SVM(self,kernel = 'rbf',C = 1.5,gamma=60):
         # Data Pre-Processing
         X = []
         for img in self.x_train:
