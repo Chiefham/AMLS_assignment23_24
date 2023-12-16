@@ -1,11 +1,4 @@
-import joblib
 import keras
-from keras.applications.vgg19 import VGG19
-from keras.models import Model, load_model, Sequential
-from keras.layers import Dense, Flatten, Dropout
-import tensorflow as tf
-from keras.utils import to_categorical
-from data_loader import data_loader
 import tensorflow as tf
 from keras.layers import Dense, Conv2D, AveragePooling2D, Flatten
 from keras.models import Sequential
@@ -13,7 +6,6 @@ from keras.utils import to_categorical
 from sklearn.metrics import classification_report, cohen_kappa_score
 import numpy as np
 from keras.callbacks import EarlyStopping
-from keras.applications.resnet import ResNet50
 
 
 class LeNet5:
