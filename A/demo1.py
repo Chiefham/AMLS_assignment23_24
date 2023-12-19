@@ -12,7 +12,7 @@ data_path = parent_folder + './Datasets/pneumoniamnist.npz'
 
 x_train,x_val,x_test,y_train,y_val,y_test = data_loader(data_path)
 
-model = DL(x_train,x_val,x_test,y_train,y_val,y_test)
+model = ML(x_train,x_val,x_test,y_train,y_val,y_test)
 
-model.LeNet5_train_eva_save()
+model.SVM()
 

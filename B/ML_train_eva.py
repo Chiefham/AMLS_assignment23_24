@@ -5,7 +5,9 @@ import cv2
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
-
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from keras.optimizers import Adam
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score,cohen_kappa_score
 
 
@@ -33,9 +35,9 @@ class ML:
         # Model Evaluation
         y_predict = clf.predict(x_test)
         ACC = accuracy_score(y_test,y_predict)
-        PRE = precision_score(y_test,y_predict)
-        RECALL = recall_score(y_test,y_predict)
-        F1 = f1_score(y_test,y_predict)
+        PRE = precision_score(y_test,y_predict,average='micro')
+        RECALL = recall_score(y_test,y_predict,average='micro')
+        F1 = f1_score(y_test,y_predict,average='micro')
         KAPPA = cohen_kappa_score(y_test,y_predict)
 
         print("Accuracy:",ACC)
@@ -46,7 +48,7 @@ class ML:
 
 
         # Model Save
-        joblib.dump(filename="Model_SVM", value=clf)
+        # joblib.dump(filename="Model_SVM", value=clf)
 
     def RF(self,n_estimators=81,max_features=8):
         # Data Pre-Processing
@@ -101,12 +103,16 @@ class ML:
         joblib.dump(filename="Model_KNN",value=clf)
 
     def transformer(self,x,y):
-        xx = []
+        X = []
         for img in x:
-            img = img.reshape(28*28,3)
-            xx.append(img)
-        X = np.array(xx)
+            img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+            hist = cv2.calcHist([img_gray], [0], None, [256], [0, 255])
+            X.append((hist / 255).flatten())
+        X = np.array(X)
         Y = np.ravel(y)
 
         return X,Y
+
+
+
 
