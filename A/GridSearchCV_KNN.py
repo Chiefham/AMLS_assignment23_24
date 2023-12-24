@@ -2,10 +2,8 @@ from data_loader import data_loader
 import os
 import numpy as np
 import cv2
-from sklearn import svm
 from sklearn.model_selection import GridSearchCV
 import time
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
 start_time = time.time()
