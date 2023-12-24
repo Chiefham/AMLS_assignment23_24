@@ -91,6 +91,7 @@ class ML:
         F1 = f1_score(y_test, y_predict)
         KAPPA = cohen_kappa_score(y_test, y_predict)
 
+
         print("Accuracy:", ACC)
         print("Precision:", PRE)
         print("Recall:", RECALL)
