@@ -1,5 +1,6 @@
 import numpy as np
 
+# load the image data from .npz file
 def data_loader(data_path):
     data = np.load(data_path)
 

@@ -80,7 +80,7 @@ class ML:
         x_test, y_test = self.transformer(self.x_test, self.y_test)
 
         # Model Training
-        clf = KNeighborsClassifier(n_neighbors =n_neighbors)
+        clf = KNeighborsClassifier(n_neighbors = n_neighbors)
         clf.fit(x_train, y_train)
 
         # Model Evaluation

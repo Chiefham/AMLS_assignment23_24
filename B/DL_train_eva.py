@@ -77,11 +77,11 @@ class DL:
         )
         for layer in model_vgg19.layers[:-1]:
             layer.trainable = False
-        top_model = Sequential()  # construct the top network
+        top_model = Sequential()
         top_model.add(Flatten(input_shape=model_vgg19.output_shape[1:]))
         top_model.add(Dense(32, activation='relu'))
         top_model.add(Dropout(0.5))
-        top_model.add(Dense(9, activation='softmax'))  # binary classfication
+        top_model.add(Dense(9, activation='softmax'))
         model = Model(
             inputs=model_vgg19.input,
             outputs=top_model(model_vgg19.output)
