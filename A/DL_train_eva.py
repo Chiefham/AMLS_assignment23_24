@@ -1,8 +1,7 @@
 import keras
-import tensorflow as tf
 from keras.layers import AveragePooling2D, Flatten
 from keras.utils import to_categorical
-from sklearn.metrics import classification_report, cohen_kappa_score
+from sklearn.metrics import classification_report
 import numpy as np
 from keras.callbacks import EarlyStopping
 from keras import layers
@@ -24,15 +23,21 @@ class DL:
         self.y_val = y_val
         self.y_test = y_test
 
+
+
+
     def data_transformer(self,x,y):
+        # data preprocessing for deep learning in task A
         X = x.reshape(-1,28,28,1)
         X = X/255
         Y = to_categorical(y,num_classes=2)
 
         return X,Y
 
-    def LeNet5_train_eva_save(self):
-        # Data Pre_Processing
+
+
+    def LeNet5(self):
+        # load the data
         x_train,y_train = self.data_transformer(self.x_train,self.y_train)
         x_val,y_val = self.data_transformer(self.x_val,self.y_val)
         x_test,y_test = self.data_transformer(self.x_test,self.y_test)
@@ -43,29 +48,32 @@ class DL:
                          filters=6,
                          kernel_size=(5,5),
                          strides=1,
-                         activation=keras.activations.tanh
+                         activation='relu'
                          )
                   )
-        model.add(AveragePooling2D(pool_size=(2,2)))
-        model.add(Conv2D(filters=6,
+        model.add(AveragePooling2D(pool_size=(2,2),strides=(2,2)))
+        model.add(Conv2D(filters=16,
                          kernel_size=(5, 5),
                          strides=1,
-                         activation=tf.keras.activations.tanh))
-        model.add(AveragePooling2D(pool_size=(2, 2)))
+                         activation='relu'))
+        model.add(AveragePooling2D(pool_size=(2, 2),strides=(2,2)))
         model.add(Flatten())
         model.add(Dense(120, activation='relu'))
         model.add(Dense(84, activation='relu'))
         model.add(Dense(2, activation='softmax'))
 
-        # Model Training
+        # model compilation and training
         model.compile(
             loss=keras.losses.CategoricalCrossentropy(),
             optimizer='RMSprop',
             metrics = ['accuracy'],
         )
+
+        # apply eary stopping technology
         early_stopping = EarlyStopping(monitor='loss', patience=3, restore_best_weights=True)
         model.fit(x_train,y_train,batch_size=32,epochs=50,verbose=1,
                   callbacks=[early_stopping],
+                  validation_data=(x_val,y_val),
                   )
 
         # Model Evaluation
@@ -78,7 +86,7 @@ class DL:
         # Model Save
         model.save("LeNet5.model")
 
-    def MobileNetV2_train_eva_save(self):
+    def MobileNetV2(self):
         # Data Pre_Processing
         x_train, y_train = self.data_transformer(self.x_train, self.y_train)
         x_val, y_val = self.data_transformer(self.x_val, self.y_val)
@@ -90,6 +98,7 @@ class DL:
             x = BatchNormalization()(x)
             x = ReLU()(x)
             return x
+
         def depthwise_conv_block(inputs, pointwise_conv_filters, depth_multiplier=1, strides=1):
             x = DepthwiseConv2D((3, 3), padding='same', depth_multiplier=depth_multiplier, strides=strides)(inputs)
             x = BatchNormalization()(x)
@@ -99,7 +108,8 @@ class DL:
             x = BatchNormalization()(x)
             x = ReLU()(x)
             return x
-        input_shape = (28,28,1)
+
+        input_shape = (28, 28, 1)
         num_classes = 2
         inputs = Input(shape=input_shape)
         x = conv_block(inputs, 32, (3, 3), strides=(2, 2))
@@ -132,8 +142,11 @@ class DL:
         report = classification_report(y_true_classes, y_pred_classes, digits=6)
         print(report)
 
-    def DNN_train_eva_save(self):
-        # Data Pre_Processing
+        # Model Save
+        model.save("MobileNetV2.model")
+
+    def DNN(self):
+        # load data
         x_train, y_train = self.data_transformer(self.x_train, self.y_train)
         x_val, y_val = self.data_transformer(self.x_val, self.y_val)
         x_test, y_test = self.data_transformer(self.x_test, self.y_test)
@@ -147,13 +160,13 @@ class DL:
         # Model Training
         model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
         early_stopping = EarlyStopping(monitor='loss', patience=3, restore_best_weights=True)
-        history = model.fit(x_train,
-                            y_train,
-                            epochs=50,
-                            batch_size=32,
-                            validation_data=(x_val, y_val),
-                            callbacks=[early_stopping],
-                            )
+        model.fit(x_train,
+                  y_train,
+                  epochs=50,
+                  batch_size=32,
+                  validation_data=(x_val, y_val),
+                  callbacks=[early_stopping],
+                  )
 
         # Model Evaluation
         y_pred = model.predict(x_test)
@@ -164,8 +177,6 @@ class DL:
 
         # Model Save
         model.save("DNN.model")
-
-
 
 
 
