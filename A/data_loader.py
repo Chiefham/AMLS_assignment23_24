@@ -13,3 +13,4 @@ def data_loader(data_path):
     return x_train,x_val,x_test,y_train,y_val,y_test
 
 
+
