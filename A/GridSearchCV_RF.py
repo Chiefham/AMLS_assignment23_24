@@ -17,6 +17,7 @@ RF_parameters = {
     "max_features":range(1,11,1)
 }
 
+
 X = []
 for img in x_train:
     hist = cv2.calcHist([img], [0], None, [256], [0, 255])
