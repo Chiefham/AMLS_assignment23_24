@@ -1,17 +1,12 @@
 import cv2
 import keras
-from keras.layers import AveragePooling2D, Flatten
 from keras.utils import to_categorical
-from sklearn.metrics import classification_report, cohen_kappa_score
+from sklearn.metrics import classification_report
 import numpy as np
-from keras.callbacks import EarlyStopping,ReduceLROnPlateau
-from keras import layers
-from keras import models
-from keras.optimizers import Adam
-from keras.layers import ReLU, DepthwiseConv2D, GlobalAveragePooling2D, Dense
+from keras.callbacks import EarlyStopping
 from keras.models import Sequential
 from keras.models import Model
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, Input, add, Dropout
+from keras.layers import Flatten, Dense,Dropout
 import tensorflow as tf
 from keras.applications.vgg19 import VGG19
 from keras.applications.mobilenet_v2 import MobileNetV2
