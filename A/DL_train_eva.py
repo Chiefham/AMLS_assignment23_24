@@ -14,6 +14,7 @@ from keras.layers import Input, Conv2D, BatchNormalization, ReLU, DepthwiseConv2
 
 
 
+
 class DL:
     def __init__(self,x_train,x_val,x_test,y_train,y_val,y_test):
         self.x_train = x_train
