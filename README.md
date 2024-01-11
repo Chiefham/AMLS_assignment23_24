@@ -1,5 +1,35 @@
 # AMLS_assignment23_24
 
+
+Description:
+
+The project folder contains one main.py file 
+that can be used by the user to quickly run the training and
+test code for the models in the two tasks. README.md is 
+used to introduce the files in the project. Folder A contains 
+the training and testing code for the models needed to complete 
+task A, and the well trained models. Folder B contains the training 
+and testing code for the models needed to complete task B, and the 
+well trained models. Datasets is an empty folder where you can paste 
+the required datasets into for use.
+
+----------------------------------------------------------
+Packages:
+
+numpy  
+opencv-python  
+keras  
+scikit-learn  
+tensorflow  
+joblib
+
+
+
+
+--------------------------------------------------------
+Introduction for each file:
+
+
 A/:
 
 DNN.model: Saved DNN model .
