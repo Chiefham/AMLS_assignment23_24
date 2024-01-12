@@ -32,6 +32,8 @@ def main():
 
     # Select the module you want to run
     # And comment out the ones you do not need to run
+    # ML means machine learning methods
+    # DL means deep learning methods
 
     ML_Model_A.SVM()
     # ML_Model_A.RF()
