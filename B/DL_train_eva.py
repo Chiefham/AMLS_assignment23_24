@@ -100,6 +100,9 @@ class DL:
         report = classification_report(y_true_classes, y_pred_classes, digits=6)
         print(report)
 
+        # Model Save
+        model.save("VGG19.model")
+
     def MobileNetV2(self):
         # Data Pre_Processing
         x_train, y_train = self.data_transformer(self.x_train, self.y_train)
@@ -124,6 +127,9 @@ class DL:
                   validation_data=(x_val, y_val)
                   )
         self.model_eva(model,x_test,y_test)
+
+        # Model Save
+        model.save("MobileNetV2.model")
 
     def DenseNet(self):
         # Data Pre_Processing
@@ -150,6 +156,10 @@ class DL:
                   )
         self.model_eva(model, x_test, y_test)
 
+        # Model Save
+        model.save("DenseNet.model")
+
+
     def ResNet152V2(self):
         # Data Pre_Processing
         x_train, y_train = self.data_transformer(self.x_train, self.y_train)
@@ -174,6 +184,9 @@ class DL:
                   validation_data=(x_val, y_val)
                   )
         self.model_eva(model, x_test, y_test)
+
+        # Model Save
+        model.save("ResNet152V2.model")
 
 
 
